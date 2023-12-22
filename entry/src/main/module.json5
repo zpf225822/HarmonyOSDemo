@@ -8,6 +8,12 @@
       "phone",
       "tablet"
     ],
+    //增加访问系统权限,为了本地可以访问网络图片
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.INTERNET"
+      }
+    ],
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
