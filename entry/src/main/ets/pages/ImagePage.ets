@@ -27,14 +27,46 @@ struct Index {
             console.log("用户输入的数量是-->"+value)
           this.imageWidth=parseInt(value)
         })
-        // 访问media下的资源
-        // Image($r("app.media.yaowan"))
-        //   .width(30);
-        // 访问rawfile资源下的文件
-        // Image($rawfile("mate60.png"))
-        //   .width(200);
-      }
 
+        //对图片进行点击放大 缩小
+        Button("缩小")
+          .fontSize(20)
+          .width(140)
+          .type(ButtonType.Capsule)
+          .onClick(()=>{
+            if(this.imageWidth>=20){
+              this.imageWidth=this.imageWidth-10
+            }else {
+              return "太小了"
+            }
+          })
+        Button("放大")
+          .fontSize(20)
+          .width(140)
+          .type(ButtonType.Capsule)
+          .onClick(()=>{
+            if(this.imageWidth<=300){
+              this.imageWidth=this.imageWidth+40
+            }else {
+              return "太大了"
+            }
+          })
+        Slider({
+          min:30,
+          max:200,
+          value:30,
+          step:5,
+          style:SliderStyle.InSet,
+          direction:Axis.Horizontal,
+          reverse:false
+        }).showSteps(true)
+          .showTips(true)
+          .blockColor("red")
+          .trackThickness(18)
+          .onChange((value)=>{
+            this.imageWidth=value
+          })
+      }
       .width('100%')
     }
     .height('100%')
