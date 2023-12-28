@@ -8,49 +8,58 @@ struct Index {
 
   //根据输入的数字,动态调整图片的大小
   build() {
-    Row() {
       Column() {
-        //访问网络资源
-        Image($r("app.media.yaowan"))
-          .width(this.imageWidth)
-          .interpolation(ImageInterpolation.High)
+        Row(){
+          //访问网络资源
+          Image($r("app.media.yaowan"))
+            .width(this.imageWidth)
+            .interpolation(ImageInterpolation.High)
+        }.width("100%")
+        .height(300)
+        .justifyContent(FlexAlign.Center)
 
-
+    Row(){
         Text($r("app.string.width_label"))
           .fontSize(24)
           .fontWeight(FontWeight.Normal);
         TextInput({placeholder:"请输入数量",text:this.imageWidth.toFixed(0)})
-          .width(140)
+          .width(20)
           .height(40)
           .maxLength(200)
           .type(InputType.Number).onChange(value=>{
-            console.log("用户输入的数量是-->"+value)
+          console.log("用户输入的数量是-->"+value)
           this.imageWidth=parseInt(value)
-        })
+  }).width("100%")
+}
+        Divider().width("100%").lineCap(LineCapStyle.Round)
+        Row(){
+          //对图片进行点击放大 缩小
+          Button("缩小")
+            .fontSize(20)
+            .width(140)
+            .type(ButtonType.Capsule)
+            .onClick(()=>{
+              if(this.imageWidth>=20){
+                this.imageWidth=this.imageWidth-10
+              }else {
+                return "太小了"
+              }
+            })
+          Button("放大")
+            .fontSize(20)
+            .width(140)
+            .type(ButtonType.Capsule)
+            .onClick(()=>{
+              if(this.imageWidth<=300){
+                this.imageWidth=this.imageWidth+40
+              }else {
+                return "太大了"
+              }
+            })
+        }.width("100%")
+        .justifyContent(FlexAlign.SpaceEvenly)
+        .margin({top:30})
 
-        //对图片进行点击放大 缩小
-        Button("缩小")
-          .fontSize(20)
-          .width(140)
-          .type(ButtonType.Capsule)
-          .onClick(()=>{
-            if(this.imageWidth>=20){
-              this.imageWidth=this.imageWidth-10
-            }else {
-              return "太小了"
-            }
-          })
-        Button("放大")
-          .fontSize(20)
-          .width(140)
-          .type(ButtonType.Capsule)
-          .onClick(()=>{
-            if(this.imageWidth<=300){
-              this.imageWidth=this.imageWidth+40
-            }else {
-              return "太大了"
-            }
-          })
         Slider({
           min:30,
           max:200,
@@ -63,12 +72,11 @@ struct Index {
           .showTips(true)
           .blockColor("red")
           .trackThickness(18)
+          .margin({top:40})
           .onChange((value)=>{
             this.imageWidth=value
           })
       }
       .width('100%')
     }
-    .height('100%')
-  }
 }
